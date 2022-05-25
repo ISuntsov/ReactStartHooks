@@ -2,6 +2,32 @@ import React from "react";
 import CollapseWrapper from "../common/collapse";
 import PropTypes from "prop-types";
 
+const ListComponent = ({ children }) => {
+    return React.Children.map(children, (child, i) => {
+        return React.cloneElement(
+            child,
+            { textNum: i + 1 }
+        );
+
+        // <div className='list-group list-group-horizontal'>
+        //     {<p className='me-2'>{i + 1}.</p>{child}}
+        // {</div>;}
+    });
+};
+ListComponent.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
+
+const Component = ({ textNum }) => {
+    return <div>{textNum}. Компонент списка</div>;
+};
+Component.propTypes = {
+    textNum: PropTypes.number
+};
+
 const ChildrenExercise = () => {
     return (
         <CollapseWrapper title="Упражнение">
@@ -20,24 +46,6 @@ const ChildrenExercise = () => {
             </ListComponent>
         </CollapseWrapper>
     );
-};
-
-const ListComponent = ({ children }) => {
-    return React.Children.map(children, (child, i) => {
-        return <div className='list-group list-group-horizontal'>
-            <p className='me-2'>{i + 1}.</p>{child}
-        </div>;
-    });
-};
-ListComponent.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ])
-};
-
-const Component = () => {
-    return <div>Компонент списка</div>;
 };
 
 export default ChildrenExercise;

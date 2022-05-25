@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const SelectField = ({
-    label,
-    value,
-    onChange,
-    defaultOption,
-    options,
-    error
-}) => {
+                         label,
+                         value,
+                         onChange,
+                         defaultOption,
+                         options,
+                         error,
+                         ...rest
+                     }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
@@ -19,9 +20,9 @@ const SelectField = ({
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.keys(options).map((optionName) => ({
-                  name: options[optionName].name,
-                  value: options[optionName]._id
-              }))
+                name: options[optionName].name,
+                value: options[optionName]._id
+            }))
             : options;
 
     return (
@@ -35,6 +36,7 @@ const SelectField = ({
                 name="profession"
                 value={value}
                 onChange={handleChange}
+                {...rest}
             >
                 <option disabled value="">
                     {defaultOption}
@@ -59,4 +61,4 @@ SelectField.propTypes = {
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-export default SelectField;
+export default React.memo(SelectField);
