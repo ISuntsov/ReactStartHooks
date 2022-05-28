@@ -6,7 +6,10 @@ const ListComponent = ({ children }) => {
     return React.Children.map(children, (child, i) => {
         return React.cloneElement(
             child,
-            { textNum: i + 1 }
+            {
+                ...child.props,
+                textNum: i + 1
+            }
         );
 
         // <div className='list-group list-group-horizontal'>
